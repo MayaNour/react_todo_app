@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import List from './List';
+import Task from './Task';
+
+const tasks_lists = [
+  {title: "To do", color:"blue"},
+  {title: "In progress", color:"yellow"},
+  {title: "Done", color:"red"}];
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {tasks_lists.map(item =>{
+        return <List>
+          <Task title={"Clean the house"} description={"you should clean the house before this date"} date={"23.09.2023"}/>
+        </List>
+      })}
     </div>
   );
 }
