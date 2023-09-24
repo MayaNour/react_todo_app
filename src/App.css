@@ -37,4 +37,42 @@ button{
   margin-bottom: 2%;
   padding: 1vw;
   float: right;
+  cursor: pointer;
+}
+
+
+#newTaskModal{
+  width: 50%;
+  height: max-content;
+  background-color: bisque;
+  box-shadow: 5px 6px 5px 0px rgba(0,0,0,0.32);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  position: fixed;
+  top: 20%;
+}
+
+#newTaskModal label, input, textarea{
+  width: 70%;
+  font-size: x-large;
+}
+
+#newTaskModal button:first-child{
+  width: min-content;
+  align-self: flex-end;
+}
+
+#newTaskModal button:last-child{
+  width: 25%;
+}
+
+#newTaskModal input, textarea{
+  margin-bottom: 1vw;
+  border-radius: 9px;
+  padding: 0.4vw;
+  font-size: large;
+  border: 2px black solid;
 }
