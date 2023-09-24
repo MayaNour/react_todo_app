@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './App.css';
 import List from './List';
-import Task from './Task';
 
 const l = [
   {title: "To do", color:"Grey", 
@@ -10,7 +9,7 @@ const l = [
           date:"23.09.2023"}]},
   {title: "In progress", color:"#0000ff80", 
   tasks:[{title:"Clean the car",
-          description:"you should car the house before this date",
+          description:"you should clean the car before this date",
           date:"23.09.2023"}]},
   {title: "Done", color:"#00ff0080", 
   tasks:[{title:"Finish 3 lessons",
@@ -23,7 +22,9 @@ function App() {
 
   return (
     <div className="App">
-      <div><button>Add new task</button></div>
+      <div>
+        <button>Add new task</button>
+      </div>
       <div className='lists'>
       {lists.map(item =>{return <List  title={item.title} color={item.color} tasks={item.tasks} />})}
       </div>

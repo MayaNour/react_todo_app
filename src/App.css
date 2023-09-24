@@ -1,20 +1,21 @@
 .App {
   margin-top: 15%;
+  margin: 15%;
+  display: flex;
+  flex-direction: column;
 }
 
 .lists{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .list{
-  /* background-color: antiquewhite; */
   border-radius: 15px;
-  margin: 0 1%;
   text-align: left;
   padding-left: 10px;
   padding-right: 10px;
-  width: 25%;
+  width: 30%;
 }
 
 .list h2{
@@ -27,4 +28,13 @@
   border-radius: 10px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+button{
+  font-size: larger;
+  border: none;
+  border-radius: 9px;
+  margin-bottom: 2%;
+  padding: 1vw;
+  float: right;
 }
