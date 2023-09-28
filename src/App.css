@@ -1,5 +1,5 @@
 .App {
-  margin-top: 15%;
+  margin-top: 10%;
   margin: 15%;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,8 @@
   text-align: left;
   padding-left: 10px;
   padding-right: 10px;
-  width: 30%;
+  width: 31%;
+  /* max-height: 500px; */
 }
 
 .list h2{
