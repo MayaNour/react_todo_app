@@ -3,18 +3,9 @@ import './App.css';
 import List from './List';
 import Modal from './Modal';
 
-const lists = [{id:"toDo",
-          title: "To do", 
-          color:"Grey",
-          stage:1},
-          {id:"inProgress",
-          title: "In progress", 
-          color:"#0000ff80",
-          stage:2},
-          {id:"done",
-          title: "Done", 
-          color:"#00ff0080",
-          stage:3}];
+const lists = [{id:"toDo", title: "To do", color:"Grey", stage:1},
+               {id:"inProgress", title: "In progress", color:"#0000ff80", stage:2},
+               {id:"done", title: "Done", color:"#00ff0080", stage:3}];
   
 const tasks =[{id:1,
               title:"Clean the house",
@@ -34,7 +25,7 @@ const tasks =[{id:1,
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [disabledAddButton, setDisabledAddButton] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState('');
   const [toDoList, setToDoList] = useState(tasks.filter(function(task){return task.stage === 1}));
   const [inProgressList, setInProgressList] = useState(tasks.filter(function(task){return task.stage === 2}));
   const [doneList, setDoneList] = useState(tasks.filter(function(task){return task.stage === 3}));
@@ -47,15 +38,42 @@ function App() {
     }
   }
 
+  const AddTask = (task) =>{
+    setToDoList([...toDoList, task]);
+  }
+
+  const editTask = (task) =>{
+    let tempList = handlelistTask(task.stage);
+    tempList = tempList.filter(t => t.id !== task.id);
+    tempList.push(task);
+    switch (task.stage){
+      case 1: setToDoList(tempList); break;
+      case 2: setInProgressList(tempList); break;
+      case 3: setDoneList(tempList);
+    }
+  }
+
+
+
   return (
     <div className="App">
-      <div>
-        <button onClick={()=>{setShowModal(true); setDisabledAddButton(true)}} disabled={disabledAddButton}>+ new task</button>
-      </div>
-      <div className='lists'>
-      {lists.map((item,index) =>{return <List key={item.id}  title={item.title} color={item.color} tasks={handlelistTask(item.stage)} />})}
-      </div>
-      <Modal show={showModal} setShow={setShowModal} setDisabled={setDisabledAddButton} setToDoList={setToDoList} toDoList={toDoList}/>
+      {showModal ? <Modal show={showModal} 
+                          setShow={setShowModal}
+                          buttonClicked={buttonClicked} 
+                          handleSubmit={buttonClicked === "Add" ? AddTask : editTask}/> : 
+      <>
+        <div>
+        <button onClick={()=>{setShowModal(true); setButtonClicked("Add")}}>+ new task</button>
+        </div>
+        <div className='lists'>
+        {lists.map((item) =>{return <List key={item.id}  
+                                          title={item.title} 
+                                          color={item.color} 
+                                          tasks={handlelistTask(item.stage)}
+                                          show={showModal}
+                                          setShow={setShowModal}/>})}
+        </div>
+      </>}
     </div>
   );
 }

@@ -77,3 +77,8 @@ button{
   font-size: large;
   border: 2px black solid;
 }
+
+#edit_button{
+  background-color: transparent;
+  
+}

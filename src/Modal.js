@@ -1,19 +1,20 @@
 import { useState } from "react";
 
-const Modal = ({show, setShow, setDisabled, setToDoList, toDoList, titlepro, des, deadline}) =>{
+const Modal = ({setShow, handleSubmit, titlepro, des, deadlineDate, buttonClicked}) =>{
     const [title, setTitle] = useState(titlepro);
     const [description, setDescription] = useState(des);
-    const [date, setDate] = useState(deadline);
+    const [date, setDate] = useState(deadlineDate);
 
 
-    const handleAddNewTask = (e) =>{
-        const task = {title:title, description:description, date:date, stage:1};
-        setToDoList([...toDoList, task]);
-        setDisabled(false);
+    const submit = () =>{
+        const task = {id:Math.floor((Math.random() * 100) + 1), 
+                      title:title, 
+                      description:description, 
+                      date:date, 
+                      stage:1};
+        handleSubmit(task);
         setShow(false);
         resetForm();
-        console.log(date);
-        console.log(date.type);
     }
 
     const resetForm = () => {
@@ -22,9 +23,9 @@ const Modal = ({show, setShow, setDisabled, setToDoList, toDoList, titlepro, des
         setDate(null);
     }
 
-    return( show &&
-        <form id="newTaskModal" onSubmit={handleAddNewTask}>
-            <button type="close" onClick={()=>{setShow(false); setDisabled(false)}}>X</button>
+    return(
+        <form id="newTaskModal" onSubmit={submit}>
+            <button type="close" onClick={()=>{setShow(false)}}>X</button>
             <label for="title">Task title*</label>
             <input name="title" 
                    type="text" 
@@ -45,7 +46,7 @@ const Modal = ({show, setShow, setDisabled, setToDoList, toDoList, titlepro, des
                    onChange={(e) => setDate(e.target.value)}
                    min={new Date().toISOString().split('T')[0]}  
                    placeholder="Enter your task last date" required/>
-            <button type="submit">Add</button>
+            <button type="submit">{buttonClicked}</button>
         </form>
     )
 } 
