@@ -1,31 +1,38 @@
 import { useState } from "react";
 
-const Modal = ({setShow, handleSubmit, titlepro, des, deadlineDate, buttonClicked}) =>{
-    const [title, setTitle] = useState(titlepro);
-    const [description, setDescription] = useState(des);
-    const [date, setDate] = useState(deadlineDate);
-
+const Modal = ({setShow, handleSubmit, selectedTask, buttonClicked, setSelectedTask}) =>{
+    const task = {...selectedTask};
+    const [title, setTitle] = useState(task.title);
+    const [description, setDescription] = useState(task.description);
+    const [date, setDate] = useState(task.date);
 
     const submit = () =>{
-        const task = {id:Math.floor((Math.random() * 100) + 1), 
+        const newId = Math.floor((Math.random() * 100) + 1);
+        const task = {id: (buttonClicked === "Add" ?  newId : selectedTask.id), 
                       title:title, 
                       description:description, 
                       date:date, 
-                      stage:1};
+                      stage: (buttonClicked === "Add" ? 1 : selectedTask.stage)};
         handleSubmit(task);
-        setShow(false);
         resetForm();
+        setShow(false);
     }
 
     const resetForm = () => {
         setTitle("");
         setDescription("");
         setDate(null);
+        setSelectedTask({});
+    }
+
+    const handleClose = () =>{
+        setShow(false);
+        resetForm();
     }
 
     return(
         <form id="newTaskModal" onSubmit={submit}>
-            <button type="close" onClick={()=>{setShow(false)}}>X</button>
+            <button type="close" onClick={handleClose}>X</button>
             <label for="title">Task title*</label>
             <input name="title" 
                    type="text" 

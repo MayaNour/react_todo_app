@@ -26,6 +26,7 @@ const tasks =[{id:1,
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [buttonClicked, setButtonClicked] = useState('');
+  const [selectedTask, setSelectedTask] = useState();
   const [toDoList, setToDoList] = useState(tasks.filter(function(task){return task.stage === 1}));
   const [inProgressList, setInProgressList] = useState(tasks.filter(function(task){return task.stage === 2}));
   const [doneList, setDoneList] = useState(tasks.filter(function(task){return task.stage === 3}));
@@ -43,35 +44,40 @@ function App() {
   }
 
   const editTask = (task) =>{
-    let tempList = handlelistTask(task.stage);
-    tempList = tempList.filter(t => t.id !== task.id);
-    tempList.push(task);
-    switch (task.stage){
-      case 1: setToDoList(tempList); break;
-      case 2: setInProgressList(tempList); break;
-      case 3: setDoneList(tempList);
+    if (task.stage === 1)
+    {
+      const taskIndex = toDoList.findIndex(t=> t.id === task.id);
+      Object.assign(toDoList[taskIndex], task);
     }
-  }
-
-
+    else if (task.stage === 2) {
+      const taskIndex = inProgressList.findIndex(t=> t.id === task.id);
+      Object.assign(inProgressList[taskIndex], task);
+    }
+    else{
+      const taskIndex = doneList.findIndex(t=> t.id === task.id);
+      Object.assign(doneList[taskIndex], task);
+    }
+    }
 
   return (
     <div className="App">
-      {showModal ? <Modal show={showModal} 
-                          setShow={setShowModal}
-                          buttonClicked={buttonClicked} 
+      {showModal ? <Modal setShow={setShowModal}
+                          buttonClicked={buttonClicked}
+                          selectedTask={selectedTask}
+                          setSelectedTask={setSelectedTask} 
                           handleSubmit={buttonClicked === "Add" ? AddTask : editTask}/> : 
       <>
         <div>
-        <button onClick={()=>{setShowModal(true); setButtonClicked("Add")}}>+ new task</button>
+          <button onClick={()=>{setShowModal(true); setButtonClicked("Add")}}>+ new task</button>
         </div>
         <div className='lists'>
         {lists.map((item) =>{return <List key={item.id}  
                                           title={item.title} 
                                           color={item.color} 
                                           tasks={handlelistTask(item.stage)}
-                                          show={showModal}
-                                          setShow={setShowModal}/>})}
+                                          setButtonClicked={setButtonClicked}
+                                          setShow={setShowModal}
+                                          setSelectedTask={setSelectedTask}/>})}
         </div>
       </>}
     </div>

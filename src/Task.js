@@ -1,16 +1,16 @@
 import Modal from './Modal';
 import edit_icon from './images/edit.png'
 
-const Task = ({title, description, date, setShow}) =>{
+const Task = ({task, setShow, setButtonClicked, setSelectedTask}) =>{
     return (
     <div className="task">
         <button id="edit_button" 
-                onClick={()=> setShow(true)}>
+                onClick={()=> {setShow(true); setButtonClicked("Edit"); setSelectedTask(task)}}>
             <img src={edit_icon} alt='edit'/>
         </button>
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <p>{date}</p>
+        <h3>{task.title}</h3>
+        <p>{task.description}</p>
+        <p>{task.date}</p>
     </div>)
 }
 
