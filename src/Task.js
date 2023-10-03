@@ -1,16 +1,24 @@
-import Modal from './Modal';
-import edit_icon from './images/edit.png'
+import ActionButton from "./ActionButton";
 
-const Task = ({task, setShow, setButtonClicked, setSelectedTask}) =>{
+const Task = ({task, setShow, setButtonClicked, setSelectedTask, actions}) =>{
+    const actionButtonOnclick = (action) =>{
+        if(action === "edit"){
+            setShow(true);  
+            setButtonClicked("Edit");
+        }
+        setSelectedTask(task);
+    }
+
     return (
     <div className="task">
-        <button id="edit_button" 
-                onClick={()=> {setShow(true); setButtonClicked("Edit"); setSelectedTask(task)}}>
-            <img src={edit_icon} alt='edit'/>
-        </button>
-        <h3>{task.title}</h3>
-        <p>{task.description}</p>
-        <p>{task.date}</p>
+        <div className='details'>
+            <h3>{task.title}</h3>
+            <p>{task.description}</p>
+            <p>{task.date}</p>
+        </div>
+        <div className='actions'>
+            {actions.map(element => <ActionButton action={element} setAction={actionButtonOnclick}/>)}
+        </div>
     </div>)
 }
 

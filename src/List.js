@@ -1,6 +1,15 @@
 import Task from "./Task";
+import edit_icon from './images/edit.png';
+import delete_icon from './images/delete.png'
+import check_icon from './images/checked.png'
+import move_icon from './images/move-right.png'
 
 const List = ({title, color, tasks, setShow, setButtonClicked, setSelectedTask}) =>{
+    const actions = [{action: "edit", image: edit_icon}, 
+                    {action: "delete", image: delete_icon}, 
+                    {action: "check", image: check_icon}, 
+                    {action: "next", image: move_icon}];
+
     const listColor = {
         'backgroundColor': color
     }
@@ -11,7 +20,8 @@ const List = ({title, color, tasks, setShow, setButtonClicked, setSelectedTask})
                                 task={task} 
                                 setShow={setShow} 
                                 setButtonClicked={setButtonClicked}
-                                setSelectedTask={setSelectedTask}/>)}
+                                setSelectedTask={setSelectedTask}
+                                actions={task.stage !== 3 ? actions : actions.slice(0, 2)}/>)}
     </div>);
 }
 

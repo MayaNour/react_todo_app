@@ -35,7 +35,7 @@ function App() {
     switch (stage){
       case 1: return toDoList;
       case 2: return inProgressList;
-      case 3: return doneList;
+      default: return doneList;
     }
   }
 
@@ -43,20 +43,23 @@ function App() {
     setToDoList([...toDoList, task]);
   }
 
+  const updateTaskList = (task, taskList, listSetter) => {
+    const newState = taskList.map(t => {
+      if(t.id === task.id)
+        return task;
+
+      return t;
+      })
+      listSetter(newState);
+  };
+
   const editTask = (task) =>{
     if (task.stage === 1)
-    {
-      const taskIndex = toDoList.findIndex(t=> t.id === task.id);
-      Object.assign(toDoList[taskIndex], task);
-    }
-    else if (task.stage === 2) {
-      const taskIndex = inProgressList.findIndex(t=> t.id === task.id);
-      Object.assign(inProgressList[taskIndex], task);
-    }
-    else{
-      const taskIndex = doneList.findIndex(t=> t.id === task.id);
-      Object.assign(doneList[taskIndex], task);
-    }
+      updateTaskList(task, toDoList, setToDoList);
+    else if (task.stage === 2) 
+      updateTaskList(task, inProgressList, setInProgressList);
+    else
+      updateTaskList(task, doneList, setDoneList);
     }
 
   return (
