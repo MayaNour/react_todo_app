@@ -4,7 +4,7 @@ import delete_icon from './images/delete.png'
 import check_icon from './images/checked.png'
 import move_icon from './images/move-right.png'
 
-const List = ({title, color, tasks, setShow, setButtonClicked, setSelectedTask}) =>{
+const List = ({title, color, tasks, setShow, setButtonClicked, setSelectedTask, deleteTask, checkTask, moveTask}) =>{
     const actions = [{action: "edit", image: edit_icon}, 
                     {action: "delete", image: delete_icon}, 
                     {action: "check", image: check_icon}, 
@@ -21,7 +21,10 @@ const List = ({title, color, tasks, setShow, setButtonClicked, setSelectedTask})
                                 setShow={setShow} 
                                 setButtonClicked={setButtonClicked}
                                 setSelectedTask={setSelectedTask}
-                                actions={task.stage !== 3 ? actions : actions.slice(0, 2)}/>)}
+                                actions={task.stage !== 3 ? actions : actions.slice(0, 2)}
+                                deleteTask={deleteTask}
+                                checkTask={checkTask}
+                                moveTask={moveTask}/>)}
     </div>);
 }
 

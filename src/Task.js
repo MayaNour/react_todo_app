@@ -1,12 +1,18 @@
 import ActionButton from "./ActionButton";
 
-const Task = ({task, setShow, setButtonClicked, setSelectedTask, actions}) =>{
+const Task = ({task, setShow, setButtonClicked, setSelectedTask, actions, deleteTask, checkTask, moveTask}) =>{
     const actionButtonOnclick = (action) =>{
         if(action === "edit"){
             setShow(true);  
             setButtonClicked("Edit");
+            setSelectedTask(task);
         }
-        setSelectedTask(task);
+        else if(action === "delete")
+            deleteTask(task);
+        else if(action === "check")
+            checkTask(task);
+        else
+            moveTask(task);
     }
 
     return (
